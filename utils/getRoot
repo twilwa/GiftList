@@ -1,0 +1,21 @@
+const { keccak256 } = require("ethereum-cryptography/keccak");
+const {
+  hexToBytes,
+  bytesToHex,
+  utf8ToBytes,
+  toHex,
+} = require("ethereum-cryptography/utils");
+const MerkleTree = require("./MerkleTree");
+const niceList = require("./niceList");
+
+const merkleTree = new MerkleTree(niceList);
+
+// get the root
+const rootBytes = utf8ToBytes(merkleTree.getRoot());
+const root = keccak256(rootBytes);
+console.log(toHex(root));
+
+//const test = keccak256(hexToBytes("0x5ec4002563401a4ada8867d406d1ce11"));
+//console.log(test);
+//const test = keccak256([127, 221, 41]);
+//console.log(test);
