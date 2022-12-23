@@ -1,21 +1,27 @@
 const express = require("express");
 const verifyProof = require("../utils/verifyProof");
+const MerkleTree = require("../utils/MerkleTree");
+const niceList = require("../utils/niceList.json");
 
 const port = 1225;
 
 const app = express();
 app.use(express.json());
 
+const ourTree = new MerkleTree(niceList);
+console.log(ourTree.getRoot());
+
 const MERKLE_ROOT =
-  "89bd236fdbb74533384e39d2eeb951d510229c2c8e317510608db76c41c7c1a2";
+  "ddd59a2ffccddd60ff47993312821cd57cf30f7f14fb82937ebe2c4dc78375aa";
 
 app.post("/gift", (req, res) => {
   // grab the parameters from the front-end here
+
   const body = req.body;
 
-  JSON.parse();
   // TODO: prove that a name is in the list
-  const isInTheList = false;
+  console.log(verifyProof(body.proof, body.name, MERKLE_ROOT));
+  const isInTheList = verifyProof(body.proof, body.name, MERKLE_ROOT);
   if (isInTheList) {
     res.send("You got a toy robot!");
   } else {

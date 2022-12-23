@@ -19,3 +19,6 @@ console.log(toHex(root));
 //console.log(test);
 //const test = keccak256([127, 221, 41]);
 //console.log(test);
+
+//it turns out this was causing a lot of problems, i wasn't actually getting the merkle root and had hardcoded the root of the tree incorrectly. I was actually getting the
+//hash, in hex, of the hash of the merkle root, heh. Lesson learned, always look if you're overcomplicating things!
